@@ -1,0 +1,14 @@
+syntax = "proto3";
+package accesslogic;
+
+message TestReq{
+	bytes key = 1;
+}
+
+message TestResp{
+	bytes value = 1;
+}
+
+service AccessLogicService {
+	rpc Test (TestReq) returns (TestResp);
+}
