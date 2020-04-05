@@ -1,0 +1,23 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.1)
+PROJECT(accesslogic)
+
+SET(CMAKE_CXX_STANDARD 14)
+SET(CMAKE_CXX_FLAGS "-Wall")
+IF(CMAKE_BUILD_TYPE MATCHES DEBUG)
+    SET(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-DDEBUG")
+ENDIF(CMAKE_BUILD_TYPE MATCHES DEBUG)
+INCLUDE_DIRECTORIES(/usr/local/include)
+INCLUDE_DIRECTORIES(.)
+LINK_LIBRARIES(pthread protobuf gpr grpc++ grpc++_reflection)
+
+SET(APP_SOURCES "./dylib.cpp")
+FILE(GLOB APP_SOURCES ${APP_SOURCES} "./Proto/*.cc")
+FILE(GLOB APP_SOURCES ${APP_SOURCES} "./Handler/*.cpp")
+FILE(GLOB APP_SOURCES ${APP_SOURCES} "./*.cpp")
+INCLUDE_DIRECTORIES(".")
+ADD_LIBRARY(accesslogic SHARED ${APP_SOURCES})
+TARGET_LINK_LIBRARIES(accesslogic coredeps accesslogicclient colib)
+
+add_subdirectory("./AccessLogicServiceClient")
+add_executable(testclient "testclient.cpp")
+TARGET_LINK_LIBRARIES(testclient coredeps accesslogicclient colib)

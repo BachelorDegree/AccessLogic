@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -fPIC  -shared -Wl,-soname,libaccesslogicclient.so -o libaccesslogicclient.so CMakeFiles/accesslogicclient.dir/AccessLogicServiceClient.cpp.o CMakeFiles/accesslogicclient.dir/accesslogic.grpc.pb.cc.o CMakeFiles/accesslogicclient.dir/accesslogic.pb.cc.o  -lpthread -lprotobuf -lgpr -lgrpc++ -lgrpc++_reflection -lcoredeps 
